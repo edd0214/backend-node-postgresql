@@ -1,12 +1,11 @@
 const { Pool} = require('pg');
 
+const {config } = require('./../config/config'); //Se manda a llamar el módulo
 
-const pool = new Pool ({
-  host: 'localhost',
-  port: 5432,
-  user: 'miguel',
-  password: 'admin123',
-  database: 'my_store'
-});
+const USER = encodeURIComponent(config.dbUser);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+const pool = new Pool ({connectionString: URI});
 
 module.exports = pool;
